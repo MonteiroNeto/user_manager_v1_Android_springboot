@@ -5,13 +5,24 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.user_manager_v1.databinding.ActivitySignUpBinding;
 import com.example.user_manager_v1.helpers.StringHelper;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -34,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void onClickSignUp() {
-        binding.btnSignUp.setOnClickListener(it->{
+        binding.btnSignUp.setOnClickListener(it -> {
             processFormField();
         });
     }
@@ -65,13 +76,59 @@ public class SignUpActivity extends AppCompatActivity {
         finish();
     }
 
-    private void processFormField(){
+    //*****************************************+FIELDS**********************************************
+    private void processFormField() {
 
-        if(!validateFirstName() || !validateLastName() || !validateEmail() || !validatePassword()){
+        if (!validateFirstName() || !validateLastName() || !validateEmail() || !validatePassword()) {
             return;
         }
 
-        Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_LONG).show();
+        //Instantiate the Request Queue:
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url = "http://192.168.1.206:8080/api/v1/user/register";
+
+
+        //String Request Object:
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                if (response.equalsIgnoreCase("success")) {
+                    binding.edtFirstNameSignUp.setText(null);
+                    binding.edtLastNameSignUp.setText(null);
+                    binding.edtEmailSignUp.setText(null);
+                    binding.edtPasswordSignUp.setText(null);
+                    binding.edtConfirmPasswordSignUp.setText(null);
+                    Toast.makeText(SignUpActivity.this, "Registration Successful", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(SignUpActivity.this, "Registration ERROR", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(SignUpActivity.this, "Registration ERROR\n\n" + error, Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("firstName",binding.edtFirstNameSignUp.getText().toString());
+                params.put("lastName",binding.edtLastNameSignUp.getText().toString());
+                params.put("email",binding.edtEmailSignUp.getText().toString());
+                params.put("password",binding.edtPasswordSignUp.getText().toString());
+
+                return params;
+            }
+        };
+
+        //End Of Response if block.
+
+        //Start process request
+        queue.add(stringRequest);
+
     }
 
 
