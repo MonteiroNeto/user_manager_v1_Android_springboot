@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/alt_bg_img"
+    tools:context=".SignInActivity">
+
+
+
+    <ImageView
+        android:id="@+id/ivLogoSignIn"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+
+        android:src="@drawable/alt_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivLogoSignIn">
+
+        <TextView
+            android:id="@+id/tvSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Sign In Activity"
+            android:textColor="@color/tropical_blue"
+            android:textSize="24sp"
+             />
+
+
+
+        <EditText
+            android:id="@+id/edtEmailSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/input_text_field_styling"
+            android:hint="Email"
+            android:paddingStart="8dp" />
+
+
+
+        <EditText
+            android:id="@+id/edtPassSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@drawable/input_text_field_styling"
+            android:hint="Password"
+            android:paddingStart="8dp" />
+
+
+        <TextView
+            android:id="@+id/tvDontHaveAccountSignIn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:text="Dont Have and account? Sign Up"
+            android:textColor="@color/tropical_blue"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_editor_absoluteX="16dp" />
+
+
+        <Button
+            android:id="@+id/btnBackHomeSignIn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:drawableLeft="@drawable/ic_back"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/alt_btn_styling"
+            android:backgroundTint="@color/dark_royal_purple"
+            android:text="Back To Home"
+            android:textColor="@color/tropical_blue"
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:textStyle="bold|italic"
+            />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
