@@ -2,6 +2,7 @@ package com.example.user_manager_v1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -108,12 +109,15 @@ public class SignUpActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+                Log.e("Error register user","***Error register user***********************");
                 Toast.makeText(SignUpActivity.this, "Registration ERROR\n\n" + error, Toast.LENGTH_LONG).show();
             }
         }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
+                //Send data to server
                 Map<String, String> params = new HashMap<>();
                 params.put("firstName",binding.edtFirstNameSignUp.getText().toString());
                 params.put("lastName",binding.edtLastNameSignUp.getText().toString());
